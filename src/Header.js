@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.png';
 import './Header.scss'
 
-const Header = () => {
+const Header = ({changePage}) => {
+
     return (
         <header className="header">
             <div className="header__container container">
@@ -12,13 +13,13 @@ const Header = () => {
                 <nav className="header__navigation">
                     <ul className="header__navigation-list">
                         <li className="header__navigation-item">
-                            <button className="header__navigation-button">Карта</button>
+                            <button name="map" onClick={changePage} className="header__navigation-button">Карта</button>
                         </li>
                         <li className="header__navigation-item">
-                            <button className="header__navigation-button">Профиль</button>
+                            <button name="profile" onClick={changePage} className="header__navigation-button">Профиль</button>
                         </li>
                         <li className="header__navigation-item">
-                            <button className="header__navigation-button">Войти</button>
+                            <button name="login" onClick={changePage} className="header__navigation-button">Войти</button>
                         </li>
                     </ul>
                 </nav>

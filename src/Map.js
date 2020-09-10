@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from './Header.js'
 
-const Map = () => {
+const Map = ({changePage}) => {
     return (
         <>
-            <Header/>
+            <Header changePage={changePage}/>
             <h1>Страница Карт</h1>
         </>
     ) 

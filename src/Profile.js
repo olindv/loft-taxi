@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from './Header.js'
 
-const Profile = () => {
+const Profile = ({changePage}) => {
     return (
         <>
-            <Header/>
+            <Header changePage={changePage}/>
             <h1>Страница Профиля</h1>
         </>
     ) 
