@@ -25,10 +25,10 @@ class App extends Component {
         return <Map changePage={this.changePage}/>;
       case "login":
         return <Login changePage={this.changePage}/>;
-      case "registration":
-        return <Registration changePage={this.changePage}/>;
-      default:
+      case "profile":
         return <Profile changePage={this.changePage}/>;
+      default:
+        return <Registration changePage={this.changePage}/>;
     }
   }
 }
