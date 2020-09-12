@@ -12,11 +12,11 @@ const Login = ({changePage}) => {
                 </div>
                 <div className="form__row">
                     <label htmlFor="login">Имя пользователя*</label>
-                    <label type="text" id="login" name="name" className="form__input"></label>
+                    <input type="text" id="login" name="name" className="form__input"></input>
                 </div>
                 <div className="form__row">
                     <label htmlFor="password">Пароль*</label>
-                    <label type="password" id="password" name="password" className="form__input"></label>
+                    <input type="password" id="password" name="password" className="form__input"></input>
                 </div>
                 <div className="form__row">
                     <button className="form__button" onClick={changePage} name="map">Войти</button>

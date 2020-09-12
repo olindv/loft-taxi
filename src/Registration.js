@@ -12,21 +12,21 @@ const Registration = ({changePage}) => {
                 </div>
                 <div className="form__row">
                     <label htmlFor="email">Адрес электронной почты</label>
-                    <label type="email" id="email" name="email" className="form__input"></label>
+                    <input type="email" id="email" name="email" className="form__input"></input>
                 </div>
                 <div className="form__block">
                     <div className="form__row">
                         <label htmlFor="name">Имя</label>
-                        <label type="text" id="name" name="name" className="form__input"></label>
+                        <input type="text" id="name" name="name" className="form__input"></input>
                     </div>
                     <div className="form__row">
                         <label htmlFor="secondName">Фамилия</label>
-                        <label type="text" id="secondName" name="secondName" className="form__input"></label>
+                        <input type="text" id="secondName" name="secondName" className="form__input"></input>
                     </div>
                 </div>
                 <div className="form__row">
                     <label htmlFor="password">Пароль</label>
-                    <label type="password" id="password" name="password" className="form__input"></label>
+                    <input type="password" id="password" name="password" className="form__input"></input>
                 </div>
                 <div className="form__row">
                     <button className="form__button" name="map" onClick={changePage}>Зарегистрироваться</button>

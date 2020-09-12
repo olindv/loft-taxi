@@ -17,7 +17,6 @@ class App extends Component {
     e.preventDefault();
     let namePage = e.target.name;
     this.setState({name: namePage})
-    console.log(e)
   }
   render() {
     switch(this.state.name) {
