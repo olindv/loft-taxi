@@ -1,13 +1,9 @@
-import React from 'react';
-import Header from './Header.js'
+import React from "react";
 
-const Profile = ({changePage}) => {
-    return (
-        <>
-            <Header changePage={changePage}/>
-            <h1>Страница Профиля</h1>
-        </>
-    ) 
-}
+const Profile = () => {
+  return (
+      <h1>Страница Профиля</h1>
+  );
+};
 
 export default Profile;

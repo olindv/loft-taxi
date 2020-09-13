@@ -1,13 +1,9 @@
-import React from 'react';
-import Header from './Header.js'
+import React from "react";
 
-const Map = ({changePage}) => {
-    return (
-        <>
-            <Header changePage={changePage}/>
-            <h1>Страница Карт</h1>
-        </>
-    ) 
-}
+const Map = () => {
+  return (
+      <h1>Страница Карт</h1>
+  );
+};
 
 export default Map;
