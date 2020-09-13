@@ -13,7 +13,7 @@ class App extends Component {
   };
   changePage = (e) => {
     e.preventDefault();
-    let namePage = e.target.name;
+    const namePage = e.target.name;
     this.setState({ name: namePage });
   };
   renderPage = (pageName) => {
