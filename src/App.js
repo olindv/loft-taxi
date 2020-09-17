@@ -9,8 +9,9 @@ import Profile from "./Profile.js";
 
 class App extends Component {
   state = {
-    name: "",
+    name: ""
   };
+
   changePage = (e) => {
     e.preventDefault();
     const namePage = e.target.name;

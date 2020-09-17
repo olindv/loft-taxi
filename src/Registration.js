@@ -1,6 +1,7 @@
 import React from "react";
 import "./Registration.scss";
 import {Logo} from 'loft-taxi-mui-theme';
+import PropTypes from 'prop-types';
 
 const Registration = ({ changePage }) => {
   return (
@@ -68,5 +69,9 @@ const Registration = ({ changePage }) => {
     </div>
   );
 };
+
+Registration.propTypes = {
+  changePage: PropTypes.func
+}
 
 export default Registration;

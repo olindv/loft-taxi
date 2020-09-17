@@ -1,6 +1,7 @@
 import React from "react";
 import {Logo} from 'loft-taxi-mui-theme';
 import "./Login.scss";
+import PropTypes from 'prop-types';
 
 const Login = ({ changePage }) => {
   return (
@@ -53,5 +54,9 @@ const Login = ({ changePage }) => {
     </div>
   );
 };
+
+Login.propTypes = {
+  changePage: PropTypes.func
+}
 
 export default Login;

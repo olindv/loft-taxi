@@ -1,6 +1,7 @@
 import React from "react";
 import {Logo} from 'loft-taxi-mui-theme';
 import "./Header.scss";
+import PropTypes from 'prop-types';
 
 const Header = ({ changePage, pageName }) => {
   const headerButtons = [
@@ -8,7 +9,7 @@ const Header = ({ changePage, pageName }) => {
     { name: "profile", text: "Профиль" },
     { name: "login", text: "Войти" },
   ];
-  console.log(Logo);
+
   return (
     <>
       {(pageName === "map" || pageName === "profile") && (
@@ -38,5 +39,10 @@ const Header = ({ changePage, pageName }) => {
     </>
   );
 };
+
+Header.propTypes = {
+  pageName: PropTypes.string,
+  changePage: PropTypes.func
+}
 
 export default Header;
