@@ -7,9 +7,12 @@ import Login from "./Login.js";
 import Registration from "./Registration.js";
 import Profile from "./Profile.js";
 
+export const AuthContext = React.createContext();
+
 class App extends Component {
   state = {
-    name: ""
+    name: "",
+    isLoggedIn: false,
   };
 
   changePage = (e) => {
@@ -30,11 +33,21 @@ class App extends Component {
     }
   };
   render() {
+    const login = (email, password) => {
+      this.setState({ name: "map" });
+      console.log("login done");
+    };
+    const logout = () => {
+      this.setState({ name: "login" });
+      console.log("logout done");
+    };
     return (
-      <>
-        <Header pageName={this.state.name} changePage={this.changePage} />
-        {this.renderPage(this.state.name)}
-      </>
+      <AuthContext.Provider value={{ login, logout }}>
+        <>
+          <Header pageName={this.state.name} changePage={this.changePage} />
+          {this.renderPage(this.state.name)}
+        </>
+      </AuthContext.Provider>
     );
   }
 }
