@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "normalize.css";
+// import "normalize.css";
 import "./App.scss";
 import Header from "./Header.js";
 import Map from "./Map.js";
@@ -15,6 +15,17 @@ class App extends Component {
     isLoggedIn: false,
   };
 
+  login = (email, password) => {
+    if (email !== "123@mail.ru" || password !== "123") {
+      return;
+    }
+    this.setState({ name: "map", isLoggedIn: true });
+    console.log("login done");
+  };
+  logout = () => {
+    this.setState({ name: "login", isLoggedIn: false });
+    console.log("logout done");
+  };
   changePage = (e) => {
     e.preventDefault();
     const namePage = e.target.name;
@@ -24,25 +35,23 @@ class App extends Component {
     switch (pageName) {
       case "map":
         return <Map changePage={this.changePage} />;
-      case "login":
-        return <Login changePage={this.changePage} />;
+      case "registration":
+        return <Registration changePage={this.changePage} />;
       case "profile":
         return <Profile changePage={this.changePage} />;
       default:
-        return <Registration changePage={this.changePage} />;
+        return <Login changePage={this.changePage} />;
     }
   };
   render() {
-    const login = (email, password) => {
-      this.setState({ name: "map" });
-      console.log("login done");
-    };
-    const logout = () => {
-      this.setState({ name: "login" });
-      console.log("logout done");
-    };
     return (
-      <AuthContext.Provider value={{ login, logout }}>
+      <AuthContext.Provider
+        value={{
+          login: this.login,
+          logout: this.logout,
+          isLoggedIn: this.state.isLoggedIn,
+        }}
+      >
         <>
           <Header pageName={this.state.name} changePage={this.changePage} />
           {this.renderPage(this.state.name)}

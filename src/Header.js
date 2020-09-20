@@ -5,14 +5,9 @@ import { string, func } from "prop-types";
 import { AuthContext } from "./App";
 
 const propTypes = {
-  pageName: string,
+  pageName: string.isRequired,
   changePage: func,
 };
-const headerButtons = [
-  { name: "map", text: "Карта" },
-  { name: "profile", text: "Профиль" },
-  { name: "login", text: "Войти" },
-];
 
 const Header = ({ changePage, pageName }) => {
   const logout = useContext(AuthContext);
@@ -20,10 +15,16 @@ const Header = ({ changePage, pageName }) => {
     logout.logout();
   };
 
+  const headerButtons = [
+    { name: "map", text: "Карта" },
+    { name: "profile", text: "Профиль" },
+    { name: "login", text: logout.isLoggedInd ? "Войти" : "Выйти" },
+  ];
+
   return (
     <>
       {(pageName === "map" || pageName === "profile") && (
-        <header className="header">
+        <header className="header" data-testid="Header">
           <div className="header__container container">
             <div className="header__logo">
               <Logo />

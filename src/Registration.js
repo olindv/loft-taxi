@@ -8,26 +8,26 @@ const propTypes = {
 };
 
 const Registration = ({ changePage }) => {
-  const [value, setValue] = useState({
+  const [fieldsValue, setValue] = useState({
     email: "",
     name: "",
     secondName: "",
     password: "",
   });
 
-  const handleChange = (event) => {
-    setValue({ ...value, [event.target.name]: event.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValue({ ...fieldsValue, [name]: value });
   };
 
   return (
-    <div className="registration__page">
+    <div className="registration__page" data-testid="Registration">
       <div className="registration__container">
         <div className="registration__logo">
           <Logo white animated />
         </div>
         <div className="registration__row">
-          <h2 className="registration__title">Страница Регистрации</h2>
-          <form className="form">
+          <form className="form" onSubmit={changePage} name="login">
             <div className="form__title">Регистрация</div>
             <div className="form__row">
               <div className="form__text">Уже зарегистрирован ?</div>
@@ -35,54 +35,62 @@ const Registration = ({ changePage }) => {
                 Войти
               </button>
             </div>
-            <div className="form__row">
+            <div className="form__row form__row_column">
               <label htmlFor="email">Адрес электронной почты</label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                value={value.email}
+                value={fieldsValue.email}
                 onChange={handleChange}
                 className="form__input"
+                required={true}
               ></input>
             </div>
-            <div className="form__block">
-              <div className="form__row">
+            <div className="form__block ">
+              <div className="form__row form__row_column">
                 <label htmlFor="name">Имя</label>
                 <input
-                  type="text"
+                  type="name"
                   id="name"
                   name="name"
-                  value={value.name}
+                  value={fieldsValue.name}
                   onChange={handleChange}
                   className="form__input"
+                  required={true}
                 ></input>
               </div>
-              <div className="form__row">
+              <div className="form__row form__row_column">
                 <label htmlFor="secondName">Фамилия</label>
                 <input
-                  type="text"
+                  type="secondName"
                   id="secondName"
                   name="secondName"
-                  value={value.secondName}
+                  value={fieldsValue.secondName}
                   onChange={handleChange}
                   className="form__input"
+                  required={true}
                 ></input>
               </div>
             </div>
-            <div className="form__row">
+            <div className="form__row form__row_column">
               <label htmlFor="password">Пароль</label>
               <input
                 type="password"
                 id="password"
                 name="password"
-                value={value.password}
+                value={fieldsValue.password}
                 onChange={handleChange}
                 className="form__input"
+                required={true}
               ></input>
             </div>
-            <div className="form__row">
-              <button className="form__button" name="map" onClick={changePage}>
+            <div className="form__row form__row_right">
+              <button
+                className="form__button"
+                name="login"
+                onClick={changePage}
+              >
                 Зарегистрироваться
               </button>
             </div>

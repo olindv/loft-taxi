@@ -18,7 +18,7 @@ class Map extends Component {
   componentDidMount() {
     this.map = new mapboxgl.Map({
       container: this.mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mapbox/light-v10",
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
@@ -31,7 +31,11 @@ class Map extends Component {
   render() {
     return (
       <div className="map__page">
-        <div ref={this.mapContainer} className="mapContainer" />
+        <div
+          ref={this.mapContainer}
+          data-testid="Map"
+          className="mapContainer"
+        />
       </div>
     );
   }

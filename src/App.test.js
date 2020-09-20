@@ -1,9 +1,12 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import App from "./App";
+import { render } from "@testing-library/react";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+jest.mock("./Login", () => ({ Login: () => <div>Login component</div> }));
+
+describe("App", () => {
+  it("renders correctly", () => {
+    const { container } = render(<App />);
+    expect(container.innerHTML).toMatch("Login component");
+  });
 });

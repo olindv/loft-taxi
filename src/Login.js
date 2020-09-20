@@ -16,7 +16,7 @@ const Login = ({ changePage }) => {
 
   const auth = useContext(AuthContext);
   const formLogin = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     auth.login(inputValues.email, inputValues.password);
   };
 
@@ -26,13 +26,12 @@ const Login = ({ changePage }) => {
   };
 
   return (
-    <div className="login__page">
+    <div className="login__page" data-testid="Login">
       <div className="login__container">
         <div className="login__logo">
           <Logo white animated />
         </div>
         <div className="login__row">
-          <h2 className="login__title">Страница Логина</h2>
           <form className="form" onSubmit={formLogin}>
             <div className="form__title">Войти</div>
             <div className="form__row">
@@ -45,7 +44,7 @@ const Login = ({ changePage }) => {
                 Зарегистрируйтесь
               </button>
             </div>
-            <div className="form__row">
+            <div className="form__row form__row_column">
               <label htmlFor="email">Имя пользователя*</label>
               <input
                 type="email"
@@ -54,9 +53,10 @@ const Login = ({ changePage }) => {
                 value={inputValues.email}
                 onChange={handleChange}
                 className="form__input"
+                required={true}
               ></input>
             </div>
-            <div className="form__row">
+            <div className="form__row form__row_column">
               <label htmlFor="password">Пароль*</label>
               <input
                 type="password"
@@ -65,10 +65,13 @@ const Login = ({ changePage }) => {
                 value={inputValues.password}
                 onChange={handleChange}
                 className="form__input"
+                required={true}
               ></input>
             </div>
-            <div className="form__row">
-              <button className="form__button">Войти</button>
+            <div className="form__row form__row_right">
+              <button type="submit" className="form__button">
+                Войти
+              </button>
             </div>
           </form>
         </div>
