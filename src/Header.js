@@ -15,7 +15,6 @@ const Header = ({ changePage, pageName }) => {
         context.logout();
     };
 
-    debugger;
     const headerButtons = [
         { name: "map", text: "Карта" },
         { name: "profile", text: "Профиль" },
