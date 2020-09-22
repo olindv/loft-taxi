@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Registration.scss";
 import { Logo } from "loft-taxi-mui-theme";
-import { func } from "prop-types";
+import { func, string } from "prop-types";
+import { AuthContext } from "./App";
 
 const propTypes = {
   changePage: func,
@@ -20,6 +21,12 @@ const Registration = ({ changePage }) => {
     setValue({ ...fieldsValue, [name]: value });
   };
 
+  const auth = useContext(AuthContext);
+  const registrationSubmit = (e) => {
+    e.preventDefault();
+    auth.logout();
+  };
+
   return (
     <div className="registration__page" data-testid="Registration">
       <div className="registration__container">
@@ -27,7 +34,7 @@ const Registration = ({ changePage }) => {
           <Logo white animated />
         </div>
         <div className="registration__row">
-          <form className="form" onSubmit={changePage} name="login">
+          <form className="form" onSubmit={registrationSubmit}>
             <div className="form__title">Регистрация</div>
             <div className="form__row">
               <div className="form__text">Уже зарегистрирован ?</div>
@@ -86,11 +93,7 @@ const Registration = ({ changePage }) => {
               ></input>
             </div>
             <div className="form__row form__row_right">
-              <button
-                className="form__button"
-                name="login"
-                onClick={changePage}
-              >
+              <button type="submit" className="form__button">
                 Зарегистрироваться
               </button>
             </div>
