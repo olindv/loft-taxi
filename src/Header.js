@@ -1,20 +1,33 @@
-import React from "react";
-import logo from "./logo.png";
+import React, { useContext } from "react";
+import { Logo } from "loft-taxi-mui-theme";
 import "./Header.scss";
+import { string, func } from "prop-types";
+import { AuthContext } from "./App";
+
+const propTypes = {
+  pageName: string,
+  changePage: func,
+};
 
 const Header = ({ changePage, pageName }) => {
+  const context = useContext(AuthContext);
+  const logoutButton = () => {
+    context.logout();
+  };
+
   const headerButtons = [
     { name: "map", text: "Карта" },
     { name: "profile", text: "Профиль" },
-    { name: "login", text: "Войти" },
+    { name: "login", text: context.isLoggedIn ? "Войти" : "Выйти" },
   ];
+
   return (
     <>
       {(pageName === "map" || pageName === "profile") && (
-        <header className="header">
+        <header className="header" data-testid="header">
           <div className="header__container container">
             <div className="header__logo">
-              <img src={logo} alt="foo" />
+              <Logo />
             </div>
             <nav className="header__navigation">
               <ul className="header__navigation-list">
@@ -22,7 +35,7 @@ const Header = ({ changePage, pageName }) => {
                   <li className="header__navigation-item" key={name}>
                     <button
                       name={name}
-                      onClick={changePage}
+                      onClick={name === "login" ? logoutButton : changePage}
                       className="header__navigation-button"
                     >
                       {text}
@@ -37,5 +50,7 @@ const Header = ({ changePage, pageName }) => {
     </>
   );
 };
+
+Header.propTypes = propTypes;
 
 export default Header;
