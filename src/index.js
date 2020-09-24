@@ -5,10 +5,13 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </MuiThemeProvider>,
   document.getElementById("root")
 );

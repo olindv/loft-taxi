@@ -3,6 +3,7 @@ import { Logo } from "loft-taxi-mui-theme";
 import "./Login.scss";
 import { func } from "prop-types";
 import { AuthContext } from "./App";
+import { Link } from "react-router-dom";
 
 const propTypes = {
   changePage: func,
@@ -36,13 +37,9 @@ const Login = ({ changePage }) => {
             <div className="form__title">Войти</div>
             <div className="form__row">
               <div className="form__text">Новый пользователь ?</div>
-              <button
-                onClick={changePage}
-                name="registration"
-                className="form__link"
-              >
+              <Link to="/" className="form__link">
                 Зарегистрируйтесь
-              </button>
+              </Link>
             </div>
             <div className="form__row form__row_column">
               <label htmlFor="email">Имя пользователя*</label>

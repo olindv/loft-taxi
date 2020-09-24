@@ -27,8 +27,8 @@ class Map extends Component {
   componentWillUnmount() {
     this.map.remove();
   }
-
   render() {
+    console.log(this.props);
     return (
       <div className="map__page">
         <div

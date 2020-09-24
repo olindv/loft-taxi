@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
 import "./Registration.scss";
 import { Logo } from "loft-taxi-mui-theme";
-import { func, string } from "prop-types";
+import { func } from "prop-types";
 import { AuthContext } from "./App";
+import { Link } from "react-router-dom";
 
 const propTypes = {
   changePage: func,
 };
 
-const Registration = ({ changePage }) => {
+const Registration = (props) => {
   const [fieldsValue, setValue] = useState({
     email: "",
     name: "",
@@ -24,8 +25,10 @@ const Registration = ({ changePage }) => {
   const auth = useContext(AuthContext);
   const registrationSubmit = (e) => {
     e.preventDefault();
-    auth.logout();
+    props.history.push("/login");
   };
+
+  console.log(props);
 
   return (
     <div className="registration__page" data-testid="Registration">
@@ -38,9 +41,9 @@ const Registration = ({ changePage }) => {
             <div className="form__title">Регистрация</div>
             <div className="form__row">
               <div className="form__text">Уже зарегистрирован ?</div>
-              <button className="form__link" name="login" onClick={changePage}>
+              <Link to="/login" className="form__link">
                 Войти
-              </button>
+              </Link>
             </div>
             <div className="form__row form__row_column">
               <label htmlFor="email">Адрес электронной почты</label>

@@ -5,43 +5,23 @@ import Map from "./Map.js";
 import Login from "./Login.js";
 import Registration from "./Registration.js";
 import Profile from "./Profile.js";
+import { withRouter, Switch, Route } from "react-router-dom";
 
 export const AuthContext = React.createContext();
 
 class App extends Component {
   state = {
-    currentPage: "login",
     isLoggedIn: false,
   };
 
   login = (email, password) => {
-    this.setState({ currentPage: "map", isLoggedIn: true });
+    this.setState({ isLoggedIn: true });
+    this.props.history.push("/map");
   };
   logout = () => {
-    this.setState({ currentPage: "login", isLoggedIn: false });
+    this.setState({ isLoggedIn: false });
   };
-  changePage = (e) => {
-    e.preventDefault();
-    const namePage = e.target.name;
-    this.setState({ currentPage: namePage });
-  };
-  renderPage = (pageName) => {
-    switch (pageName) {
-      case "map":
-        return <Map changePage={this.changePage} />;
-      case "registration":
-        return (
-          <Registration
-            changePage={this.changePage}
-            pageName={this.state.currentPage}
-          />
-        );
-      case "profile":
-        return <Profile changePage={this.changePage} />;
-      default:
-        return <Login changePage={this.changePage} />;
-    }
-  };
+
   render() {
     return (
       <AuthContext.Provider
@@ -53,11 +33,16 @@ class App extends Component {
       >
         <>
           <div data-testid="App">
-            <Header
-              pageName={this.state.currentPage}
-              changePage={this.changePage}
-            />
-            {this.renderPage(this.state.currentPage)}
+            {(this.props.location.pathname === "/map" ||
+              this.props.location.pathname === "/profile") && (
+              <Header pageName={this.state.currentPage} />
+            )}
+            <Switch>
+              <Route path="/" component={Registration} exact />
+              <Route path="/login" component={Login} />
+              <Route path="/map" component={Map} />
+              <Route path="/profile" component={Profile} />
+            </Switch>
           </div>
         </>
       </AuthContext.Provider>
@@ -65,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
