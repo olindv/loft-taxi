@@ -6,13 +6,20 @@ import * as serviceWorker from "./serviceWorker";
 import { theme } from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter } from "react-router-dom";
+import createAppStore from "./store";
+import { Provider } from "react-redux";
+
+export const store = createAppStore();
+store.subscribe(() => store.getState().auth);
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </MuiThemeProvider>,
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MuiThemeProvider>
+  </Provider>,
   document.getElementById("root")
 );
 

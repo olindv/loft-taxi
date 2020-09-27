@@ -1,5 +1,7 @@
-.App {
-    .container {
-        width: 1180px;
-    }
+.app {
+  display: flex;
+  flex-direction: column;
+  .container {
+    width: 1180px;
+  }
 }

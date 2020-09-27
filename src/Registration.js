@@ -1,34 +1,23 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import "./Registration.scss";
 import { Logo } from "loft-taxi-mui-theme";
 import { func } from "prop-types";
-import { AuthContext } from "./App";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { registrationRequest } from "./redux/actions/actions";
 
 const propTypes = {
   changePage: func,
 };
 
-const Registration = (props) => {
-  const [fieldsValue, setValue] = useState({
-    email: "",
-    name: "",
-    secondName: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValue({ ...fieldsValue, [name]: value });
-  };
-
-  const auth = useContext(AuthContext);
+const Registration = ({ isLoggedIn, registration }) => {
   const registrationSubmit = (e) => {
     e.preventDefault();
-    props.history.push("/login");
+    const { name, surname, email, password } = e.target;
+    registration(name.value, surname.value, email.value, password.value);
   };
 
-  console.log(props);
+  if (isLoggedIn) return <Redirect to="/map" />;
 
   return (
     <div className="registration__page" data-testid="Registration">
@@ -51,8 +40,6 @@ const Registration = (props) => {
                 type="email"
                 id="email"
                 name="email"
-                value={fieldsValue.email}
-                onChange={handleChange}
                 className="form__input"
                 required={true}
               ></input>
@@ -64,20 +51,16 @@ const Registration = (props) => {
                   type="name"
                   id="name"
                   name="name"
-                  value={fieldsValue.name}
-                  onChange={handleChange}
                   className="form__input"
                   required={true}
                 ></input>
               </div>
               <div className="form__row form__row_column">
-                <label htmlFor="secondName">Фамилия</label>
+                <label htmlFor="surname">Фамилия</label>
                 <input
-                  type="secondName"
-                  id="secondName"
-                  name="secondName"
-                  value={fieldsValue.secondName}
-                  onChange={handleChange}
+                  type="surname"
+                  id="surname"
+                  name="surname"
                   className="form__input"
                   required={true}
                 ></input>
@@ -89,8 +72,6 @@ const Registration = (props) => {
                 type="password"
                 id="password"
                 name="password"
-                value={fieldsValue.password}
-                onChange={handleChange}
                 className="form__input"
                 required={true}
               ></input>
@@ -109,4 +90,16 @@ const Registration = (props) => {
 
 Registration.propTypes = propTypes;
 
-export default Registration;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.auth,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registration: (name, surname, email, password) =>
+      dispatch(registrationRequest({ name, surname, email, password })),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Logo } from "loft-taxi-mui-theme";
 import "./Header.scss";
 import { string, func } from "prop-types";
-import { AuthContext } from "./App";
 import { Link } from "react-router-dom";
 
 const propTypes = {
@@ -11,15 +10,13 @@ const propTypes = {
 };
 
 const Header = ({ changePage, pageName }) => {
-  const context = useContext(AuthContext);
-  const logoutButton = () => {
-    context.logout();
+  const clearStorage = () => {
+    window.localStorage.clear();
   };
-
   const headerButtons = [
     { url: "/map", text: "Карта", id: "map" },
     { url: "/profile", text: "Профиль", id: "profile" },
-    { url: "/", text: context.isLoggedIn ? "Войти" : "Выйти", id: "home" },
+    { url: "/", text: "Выйти", id: "home" },
   ];
   return (
     <>
