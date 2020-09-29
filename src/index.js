@@ -12,14 +12,14 @@ import { Provider } from "react-redux";
 export const store = createAppStore();
 
 ReactDOM.render(
-    <Provider store={store}>
-        <MuiThemeProvider theme={theme}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </MuiThemeProvider>
-    </Provider>,
-    document.getElementById("root")
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MuiThemeProvider>
+  </Provider>,
+  document.getElementById("root")
 );
 
 serviceWorker.unregister();

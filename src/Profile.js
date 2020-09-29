@@ -89,8 +89,6 @@ const Profile = ({ payment }) => {
   );
 };
 
-// Profile.propTypes = propTypes;
-
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.auth,

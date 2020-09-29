@@ -28,7 +28,6 @@ class Map extends Component {
     this.map.remove();
   }
   render() {
-    console.log(this.props);
     return (
       <div className="map__page">
         <div
