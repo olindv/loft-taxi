@@ -1,11 +1,13 @@
 import React from "react";
-import Login from "../Login";
+import App from "../App";
 import { render } from "@testing-library/react";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
-describe("Login", () => {
+jest.mock("../Registration", () => () => <div>Registration</div>);
+
+describe("App", () => {
     it("renders correctly", () => {
         const mockStore = {
             getState: () => ({ isLoggedIn: true }),
@@ -13,18 +15,14 @@ describe("Login", () => {
             dispatch: () => {},
         };
         const history = createMemoryHistory();
-        const { getByTestId, getByLabelText } = render(
+        const { getByTestId } = render(
             <Router history={history}>
                 <Provider store={mockStore}>
-                    <Login />
+                    <App />
                 </Provider>
             </Router>
         );
-        expect(getByTestId("login")).toBeInTheDocument();
-        expect(getByLabelText("Имя пользователя*")).toHaveAttribute(
-            "name",
-            "email"
-        );
-        expect(getByLabelText("Пароль*")).toHaveAttribute("name", "password");
+        expect(getByTestId("app")).toBeInTheDocument();
+        // expect(container.innerHTML).toMatch("app");
     });
 });

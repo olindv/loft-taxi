@@ -1,5 +1,5 @@
 import React from "react";
-import Registration from "./Registration.js";
+import Registration from "../Registration.js";
 import { render } from "@testing-library/react";
 
 describe("Registration", () => {

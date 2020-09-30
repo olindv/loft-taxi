@@ -7,6 +7,7 @@
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/user-event": "^7.2.1",
+    "history": "^5.0.0",
     "loft-taxi-mui-theme": "^1.2.0",
     "mapbox-gl": "^1.12.0",
     "node-sass": "^4.14.1",
