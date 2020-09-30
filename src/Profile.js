@@ -1,7 +1,6 @@
 import React from "react";
 import { MCIcon } from "loft-taxi-mui-theme";
 import "./Profile.scss";
-import { func } from "prop-types";
 import { connect } from "react-redux";
 import { paymentRequest } from "./redux/actions/actions";
 
