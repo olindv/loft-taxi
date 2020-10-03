@@ -14,7 +14,7 @@ export const authMiddleWare = (store) => (next) => async (action) => {
     const { email, password } = action.payload;
     const [success, token] = await serverLogin(email, password);
     if (success) {
-      store.dispatch(loginSuccess());
+      store.dispatch(loginSuccess(token));
       window.localStorage.setItem("token", token);
     } else {
       store.dispatch(loginFailure());
@@ -28,7 +28,7 @@ export const authMiddleWare = (store) => (next) => async (action) => {
       password
     );
     if (success) {
-      store.dispatch(registrationSuccess());
+      store.dispatch(registrationSuccess(token));
       window.localStorage.setItem("token", token);
     } else {
       store.dispatch(registrationFailure());

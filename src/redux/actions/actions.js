@@ -4,9 +4,10 @@ export const loginRequest = (payload) => {
     payload,
   };
 };
-export const loginSuccess = () => {
+export const loginSuccess = (payload) => {
   return {
     type: "LOGIN_SUCCESS",
+    payload,
   };
 };
 export const loginFailure = () => {
@@ -21,9 +22,10 @@ export const registrationRequest = (payload) => {
     payload,
   };
 };
-export const registrationSuccess = () => {
+export const registrationSuccess = (payload) => {
   return {
     type: "REGISTRATION_SUCCESS",
+    payload,
   };
 };
 export const registrationFailure = () => {
@@ -37,9 +39,10 @@ export const paymentRequest = (payload) => {
     payload,
   };
 };
-export const paymentSuccess = () => {
+export const paymentSuccess = (payload) => {
   return {
     type: "PAYMENT_SUCCESS",
+    payload,
   };
 };
 export const paymentFailure = () => {
@@ -48,8 +51,9 @@ export const paymentFailure = () => {
   };
 };
 
-export const logoutUser = () => {
+export const logoutUser = (payload) => {
   return {
     type: "LOGOUT_USER",
+    payload,
   };
 };

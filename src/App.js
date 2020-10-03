@@ -43,8 +43,9 @@ class App extends Component {
 App.propTypes = propTypes;
 
 const mapDispatchToProps = (dispatch) => {
+  const token = window.localStorage.getItem("token");
   return {
-    isLoggedIn: () => dispatch(loginSuccess()),
+    isLoggedIn: () => dispatch(loginSuccess(token)),
   };
 };
 

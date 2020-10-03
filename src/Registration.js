@@ -92,7 +92,7 @@ Registration.propTypes = propTypes;
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth,
+    isLoggedIn: state.auth.isLoggedIn,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { MCIcon } from "loft-taxi-mui-theme";
 import "./Profile.scss";
 import { connect } from "react-redux";
 import { paymentRequest } from "./redux/actions/actions";
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const Profile = ({ payment }) => {
+  const [inputValues, setInputValue] = useState({
+    cardNumber: "",
+    expiryDate: new Date(),
+    userName: "",
+    cvcNumber: "",
+    token: window.localStorage.getItem("token"),
+  });
+
+  const handleDateChange = (date) => {
+    setInputValue({
+      ...inputValues,
+      expiryDate: date,
+    });
+  };
+
   const submit = (e) => {
     e.preventDefault();
     const { cardNumber, expiryDate, userName, cvcNumber } = e.target;
@@ -43,16 +60,22 @@ const Profile = ({ payment }) => {
                     required={true}
                   ></input>
                 </div>
-                <div className="form__row form__row_column" format="MM/yy">
-                  <label htmlFor="expiryDate">Срок действия:</label>
-                  <input
-                    type="expiryDate"
-                    id="expiryDate"
+
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker
                     name="expiryDate"
-                    className="form__input"
-                    required={true}
-                  ></input>
-                </div>
+                    value={inputValues.expiryDate}
+                    onChange={handleDateChange}
+                    label="Срок действия:"
+                    minDate={new Date()}
+                    placeholder="07/22"
+                    openTo="year"
+                    views={["year", "month"]}
+                    format="MM/yy"
+                    fullWidth
+                    required
+                  />
+                </MuiPickersUtilsProvider>
               </div>
               <div className="form__right">
                 <div className="form__row form__row_column">
@@ -90,7 +113,7 @@ const Profile = ({ payment }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth,
+    isLoggedIn: state.auth.isLoggedIn,
   };
 };
 const mapDispatchToProps = (dispatch) => {
