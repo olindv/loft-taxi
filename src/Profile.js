@@ -8,10 +8,10 @@ import DateFnsUtils from "@date-io/date-fns";
 
 const Profile = ({ payment, paymentInfo }) => {
   const [inputValues, setInputValue] = useState({
-    cardNumber: "",
-    expiryDate: new Date(),
-    userName: "",
-    cvcNumber: "",
+    cardNumber: paymentInfo.cardNumber,
+    expiryDate: paymentInfo.expiryDate || new Date(),
+    userName: paymentInfo.userName,
+    cvcNumber: paymentInfo.cvcNumber,
   });
 
   const handleDateChange = (date) => {
@@ -31,7 +31,6 @@ const Profile = ({ payment, paymentInfo }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    const { cardNumber, expiryDate, userName, cvcNumber } = e.target;
     payment(inputValues);
   };
 
@@ -53,6 +52,7 @@ const Profile = ({ payment, paymentInfo }) => {
                   <label htmlFor="cardNumber">Номер карты:</label>
                   <input
                     type="cardNumber"
+                    value={inputValues.cardNumber}
                     id="cardNumber"
                     name="cardNumber"
                     className="form__input"
@@ -85,6 +85,7 @@ const Profile = ({ payment, paymentInfo }) => {
                     type="userName"
                     id="userName"
                     name="userName"
+                    value={inputValues.userName}
                     className="form__input"
                     onChange={handleInnputChange}
                     required={true}
@@ -96,6 +97,7 @@ const Profile = ({ payment, paymentInfo }) => {
                     type="cvcNumber"
                     id="cvcNumber"
                     name="cvcNumber"
+                    value={inputValues.cvcNumber}
                     className="form__input"
                     onChange={handleInnputChange}
                     required={true}
@@ -116,7 +118,7 @@ const Profile = ({ payment, paymentInfo }) => {
 
 const mapStateToProps = (state) => {
   return {
-    paymentInfo: state.paymentDetail,
+    paymentInfo: state.payment,
   };
 };
 const mapDispatchToProps = (dispatch) => {

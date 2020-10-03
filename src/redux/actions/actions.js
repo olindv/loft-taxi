@@ -51,6 +51,24 @@ export const paymentFailure = () => {
   };
 };
 
+export const paymentGetCardRequest = (payload) => {
+  return {
+    type: "PAYMENT_GETCARD_REQUEST",
+    payload,
+  };
+};
+export const paymentGetCardSuccess = (payload) => {
+  return {
+    type: "PAYMENT_GETCARD_SUCCESS",
+    payload,
+  };
+};
+export const paymentGetCardFailure = () => {
+  return {
+    type: "PAYMENT_GETCARD_FAILURE",
+  };
+};
+
 export const logoutUser = (payload) => {
   return {
     type: "LOGOUT_USER",

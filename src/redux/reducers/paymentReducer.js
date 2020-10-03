@@ -12,7 +12,7 @@ export default (state = paymentDetail, action) => {
     case "PAYMENT_SUCCESS":
       return action.payload;
     case "PAYMENT_FAILURE":
-      return false;
+      return paymentDetail;
     default:
       return state;
   }

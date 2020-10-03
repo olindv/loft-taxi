@@ -32,3 +32,18 @@ export const serverPayment = async (
     .then((response) => response.json())
     .then((data) => data.success);
 };
+
+export const serverGetCard = async (
+  cardNumber,
+  expiryDate,
+  userName,
+  cvcNumber
+) => {
+  return fetch("https://loft-taxi.glitch.me/card", {
+    method: "GET",
+    body: JSON.stringify({ cardNumber, expiryDate, userName, cvcNumber }),
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => data.success);
+};
