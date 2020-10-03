@@ -27,7 +27,7 @@ const Header = ({ isLoggedOut }) => {
       <header className="header" data-testid="header">
         <div className="header__container container">
           <div className="header__logo">
-            <Logo />
+            <Logo animated />
           </div>
           <nav className="header__navigation">
             <ul className="header__navigation-list">

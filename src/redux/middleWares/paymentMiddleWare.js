@@ -15,7 +15,9 @@ export const paymentMiddleWare = (store) => (next) => async (action) => {
       cvcNumber
     );
     if (success) {
-      store.dispatch(paymentSuccess());
+      store.dispatch(
+        paymentSuccess(cardNumber, expiryDate, userName, cvcNumber)
+      );
     } else {
       store.dispatch(paymentFailure());
     }

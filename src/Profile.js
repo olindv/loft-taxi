@@ -6,13 +6,12 @@ import { paymentRequest } from "./redux/actions/actions";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-const Profile = ({ payment }) => {
+const Profile = ({ payment, paymentInfo }) => {
   const [inputValues, setInputValue] = useState({
     cardNumber: "",
     expiryDate: new Date(),
     userName: "",
     cvcNumber: "",
-    token: window.localStorage.getItem("token"),
   });
 
   const handleDateChange = (date) => {
@@ -22,17 +21,18 @@ const Profile = ({ payment }) => {
     });
   };
 
+  const handleInnputChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue({
+      ...inputValues,
+      [name]: value,
+    });
+  };
+
   const submit = (e) => {
     e.preventDefault();
     const { cardNumber, expiryDate, userName, cvcNumber } = e.target;
-    const token = window.localStorage.getItem("token");
-    payment(
-      cardNumber.value,
-      expiryDate.value,
-      userName.value,
-      cvcNumber.value,
-      token
-    );
+    payment(inputValues);
   };
 
   return (
@@ -57,6 +57,7 @@ const Profile = ({ payment }) => {
                     name="cardNumber"
                     className="form__input"
                     placeholder="0000 0000 0000 0000"
+                    onChange={handleInnputChange}
                     required={true}
                   ></input>
                 </div>
@@ -85,6 +86,7 @@ const Profile = ({ payment }) => {
                     id="userName"
                     name="userName"
                     className="form__input"
+                    onChange={handleInnputChange}
                     required={true}
                   ></input>
                 </div>
@@ -95,6 +97,7 @@ const Profile = ({ payment }) => {
                     id="cvcNumber"
                     name="cvcNumber"
                     className="form__input"
+                    onChange={handleInnputChange}
                     required={true}
                   ></input>
                 </div>
@@ -113,7 +116,7 @@ const Profile = ({ payment }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
+    paymentInfo: state.paymentDetail,
   };
 };
 const mapDispatchToProps = (dispatch) => {

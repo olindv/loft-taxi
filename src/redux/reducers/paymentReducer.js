@@ -1,9 +1,16 @@
-export default (state = false, action) => {
+const paymentDetail = {
+  cardNumber: "",
+  expiryDate: "",
+  userName: "",
+  cvcNumber: "",
+};
+
+export default (state = paymentDetail, action) => {
   switch (action.type) {
     case "PAYMENT_REQUEST":
       return action.payload;
     case "PAYMENT_SUCCESS":
-      return true;
+      return action.payload;
     case "PAYMENT_FAILURE":
       return false;
     default:
