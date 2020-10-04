@@ -1,30 +1,23 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Logo } from "loft-taxi-mui-theme";
 import "./Login.scss";
-import { func } from "prop-types";
-import { AuthContext } from "./App";
+import { func, bool } from "prop-types";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginRequest } from "./redux/actions/actions";
 
 const propTypes = {
-  changePage: func,
+  isLoggedIn: bool,
+  registration: func,
 };
 
-const Login = ({ changePage }) => {
-  const [inputValues, setInputValue] = useState({
-    email: "",
-    password: "",
-  });
-
-  const auth = useContext(AuthContext);
+const Login = ({ isLoggedIn, login }) => {
   const formLogin = (e) => {
     e.preventDefault();
-    auth.login(inputValues.email, inputValues.password);
+    const { email, password } = e.target;
+    login(email.value, password.value);
   };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue({ ...inputValues, [name]: value });
-  };
-
+  if (isLoggedIn) return <Redirect to="/map" />;
   return (
     <div className="login__page" data-testid="login">
       <div className="login__container">
@@ -36,13 +29,9 @@ const Login = ({ changePage }) => {
             <div className="form__title">Войти</div>
             <div className="form__row">
               <div className="form__text">Новый пользователь ?</div>
-              <button
-                onClick={changePage}
-                name="registration"
-                className="form__link"
-              >
+              <Link to="/" className="form__link" data-testid="regLink">
                 Зарегистрируйтесь
-              </button>
+              </Link>
             </div>
             <div className="form__row form__row_column">
               <label htmlFor="email">Имя пользователя*</label>
@@ -50,8 +39,6 @@ const Login = ({ changePage }) => {
                 type="email"
                 id="email"
                 name="email"
-                value={inputValues.email}
-                onChange={handleChange}
                 className="form__input"
                 required={true}
               ></input>
@@ -62,8 +49,6 @@ const Login = ({ changePage }) => {
                 type="password"
                 id="password"
                 name="password"
-                value={inputValues.password}
-                onChange={handleChange}
                 className="form__input"
                 required={true}
               ></input>
@@ -82,4 +67,14 @@ const Login = ({ changePage }) => {
 
 Login.propTypes = propTypes;
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (email, password) => dispatch(loginRequest({ email, password })),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

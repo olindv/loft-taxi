@@ -5,64 +5,48 @@ import Map from "./Map.js";
 import Login from "./Login.js";
 import Registration from "./Registration.js";
 import Profile from "./Profile.js";
+import { withRouter, Switch, Route } from "react-router-dom";
+import { PrivateRoute } from "./PrivateRoute";
+import { connect } from "react-redux";
+import { loginSuccess } from "./redux/actions/actions";
+import { func } from "prop-types";
 
-export const AuthContext = React.createContext();
+const propTypes = {
+  isLoggedIn: func,
+};
 
 class App extends Component {
-  state = {
-    currentPage: "login",
-    isLoggedIn: false,
-  };
-
-  login = (email, password) => {
-    this.setState({ currentPage: "map", isLoggedIn: true });
-  };
-  logout = () => {
-    this.setState({ currentPage: "login", isLoggedIn: false });
-  };
-  changePage = (e) => {
-    e.preventDefault();
-    const namePage = e.target.name;
-    this.setState({ currentPage: namePage });
-  };
-  renderPage = (pageName) => {
-    switch (pageName) {
-      case "map":
-        return <Map changePage={this.changePage} />;
-      case "registration":
-        return (
-          <Registration
-            changePage={this.changePage}
-            pageName={this.state.currentPage}
-          />
-        );
-      case "profile":
-        return <Profile changePage={this.changePage} />;
-      default:
-        return <Login changePage={this.changePage} />;
+  componentDidMount() {
+    if (window.localStorage.getItem("token")) {
+      this.props.isLoggedIn();
     }
-  };
+  }
+
   render() {
     return (
-      <AuthContext.Provider
-        value={{
-          login: this.login,
-          logout: this.logout,
-          isLoggedIn: this.state.isLoggedIn,
-        }}
-      >
-        <>
-          <div data-testid="App">
-            <Header
-              pageName={this.state.currentPage}
-              changePage={this.changePage}
-            />
-            {this.renderPage(this.state.currentPage)}
-          </div>
-        </>
-      </AuthContext.Provider>
+      <>
+        <div className="app" data-testid="app">
+          {(this.props.location.pathname === "/map" ||
+            this.props.location.pathname === "/profile") && <Header />}
+          <Switch>
+            <Route path="/" component={Registration} exact />
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/map" component={Map} />
+            <PrivateRoute path="/profile" component={Profile} />
+          </Switch>
+        </div>
+      </>
     );
   }
 }
 
-export default App;
+App.propTypes = propTypes;
+
+const mapDispatchToProps = (dispatch) => {
+  const token = window.localStorage.getItem("token");
+  return {
+    isLoggedIn: () => dispatch(loginSuccess(token)),
+  };
+};
+
+export default withRouter(connect(null, mapDispatchToProps)(App));

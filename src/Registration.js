@@ -1,34 +1,26 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import "./Registration.scss";
 import { Logo } from "loft-taxi-mui-theme";
-import { func, string } from "prop-types";
-import { AuthContext } from "./App";
+import { bool, func } from "prop-types";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { registrationRequest } from "./redux/actions/actions";
 
 const propTypes = {
-  changePage: func,
+  isLoggedIn: bool,
+  registration: func,
 };
 
-const Registration = ({ changePage }) => {
-  const [fieldsValue, setValue] = useState({
-    email: "",
-    name: "",
-    secondName: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValue({ ...fieldsValue, [name]: value });
-  };
-
-  const auth = useContext(AuthContext);
+const Registration = ({ isLoggedIn, registration }) => {
   const registrationSubmit = (e) => {
     e.preventDefault();
-    auth.logout();
+    const { name, surname, email, password } = e.target;
+    registration(name.value, surname.value, email.value, password.value);
   };
 
+  if (isLoggedIn) return <Redirect to="/map" />;
   return (
-    <div className="registration__page" data-testid="Registration">
+    <div className="registration__page" data-testid="registration">
       <div className="registration__container">
         <div className="registration__logo">
           <Logo white animated />
@@ -38,9 +30,9 @@ const Registration = ({ changePage }) => {
             <div className="form__title">Регистрация</div>
             <div className="form__row">
               <div className="form__text">Уже зарегистрирован ?</div>
-              <button className="form__link" name="login" onClick={changePage}>
+              <Link to="/login" className="form__link" data-testid="loginLink">
                 Войти
-              </button>
+              </Link>
             </div>
             <div className="form__row form__row_column">
               <label htmlFor="email">Адрес электронной почты</label>
@@ -48,8 +40,6 @@ const Registration = ({ changePage }) => {
                 type="email"
                 id="email"
                 name="email"
-                value={fieldsValue.email}
-                onChange={handleChange}
                 className="form__input"
                 required={true}
               ></input>
@@ -61,20 +51,16 @@ const Registration = ({ changePage }) => {
                   type="name"
                   id="name"
                   name="name"
-                  value={fieldsValue.name}
-                  onChange={handleChange}
                   className="form__input"
                   required={true}
                 ></input>
               </div>
               <div className="form__row form__row_column">
-                <label htmlFor="secondName">Фамилия</label>
+                <label htmlFor="surname">Фамилия</label>
                 <input
-                  type="secondName"
-                  id="secondName"
-                  name="secondName"
-                  value={fieldsValue.secondName}
-                  onChange={handleChange}
+                  type="surname"
+                  id="surname"
+                  name="surname"
                   className="form__input"
                   required={true}
                 ></input>
@@ -86,8 +72,6 @@ const Registration = ({ changePage }) => {
                 type="password"
                 id="password"
                 name="password"
-                value={fieldsValue.password}
-                onChange={handleChange}
                 className="form__input"
                 required={true}
               ></input>
@@ -106,4 +90,16 @@ const Registration = ({ changePage }) => {
 
 Registration.propTypes = propTypes;
 
-export default Registration;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registration: (name, surname, email, password) =>
+      dispatch(registrationRequest({ name, surname, email, password })),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

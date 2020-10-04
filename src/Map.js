@@ -27,7 +27,6 @@ class Map extends Component {
   componentWillUnmount() {
     this.map.remove();
   }
-
   render() {
     return (
       <div className="map__page">

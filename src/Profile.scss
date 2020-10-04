@@ -1,0 +1,82 @@
+.profile {
+  height: calc(100vh - 86px);
+  background-image: url(./bg.jpg);
+  &__container {
+    width: 945px;
+    margin: 100px auto 0;
+  }
+  &__wrap {
+    border-radius: 3px;
+    background-color: rgb(255, 255, 255);
+    padding: 60px 70px;
+  }
+  &__head {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  &__title {
+    font-size: 36px;
+    color: rgb(50, 50, 50);
+    font-weight: bold;
+    margin: 0 0 10px 0;
+  }
+  &__subtitle {
+    font-size: 16px;
+    color: rgb(80, 80, 80);
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    &__row {
+      font-size: 15px;
+      color: rgb(116, 116, 116);
+      margin-bottom: 30px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &_column {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        margin-bottom: 15px;
+      }
+      input {
+        font-size: 24px;
+        color: rgb(50, 50, 50);
+        border: 1px solid transparent;
+        border-bottom-color: rgb(255, 177, 177);
+        outline: none;
+      }
+    }
+    &__container {
+      display: flex;
+      margin-bottom: 40px;
+      justify-content: space-between;
+    }
+    &__left,
+    &__right {
+      border-radius: 10px;
+      background-color: rgb(255, 255, 255);
+      box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.15);
+      max-width: 382px;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 30px 35px;
+    }
+    &__left {
+      position: relative;
+    }
+    &__button {
+      border-radius: 4px;
+      background-color: rgb(255, 198, 23);
+      max-width: 195px;
+      outline: none;
+      border: none;
+      padding: 15px 48px;
+      font-size: 21px;
+      color: rgb(0, 0, 0);
+      align-self: center;
+    }
+  }
+}
