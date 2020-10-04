@@ -8,10 +8,10 @@ import DateFnsUtils from "@date-io/date-fns";
 
 const Profile = ({ payment, paymentInfo }) => {
   const [inputValues, setInputValue] = useState({
-    cardNumber: paymentInfo.cardNumber,
+    cardNumber: paymentInfo.cardNumber || "",
     expiryDate: paymentInfo.expiryDate || new Date(),
-    userName: paymentInfo.userName,
-    cvcNumber: paymentInfo.cvcNumber,
+    userName: paymentInfo.userName || "",
+    cvcNumber: paymentInfo.cvcNumber || "",
   });
 
   const handleDateChange = (date) => {
