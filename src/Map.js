@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Map.scss";
+import { connect } from "react-redux";
+import { InfoBoxSelect } from "./InfoBoxSelect";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibmF2cmFzODgiLCJhIjoiY2tmNXU1emE3MHFzbDJ5bm82ZDJjZnQ4cSJ9.Y3wSyP78GmPNBV00ZKwktg";
@@ -30,6 +32,7 @@ class Map extends Component {
   render() {
     return (
       <div className="map__page">
+        <InfoBoxSelect />
         <div
           ref={this.mapContainer}
           data-testid="Map"
@@ -40,4 +43,15 @@ class Map extends Component {
   }
 }
 
-export default Map;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // getAddresses: () => dispatch(addressListRequest()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

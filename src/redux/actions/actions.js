@@ -69,6 +69,42 @@ export const paymentGetCardFailure = () => {
   };
 };
 
+export const addressListFailure = () => {
+  return {
+    type: "ADDRESSLIST_FAILURE",
+  };
+};
+export const addressListRequest = (payload) => {
+  return {
+    type: "ADDRESSLIST_REQUEST",
+    payload,
+  };
+};
+export const addressListSuccess = (payload) => {
+  return {
+    type: "ADDRESSLIST_SUCCESS",
+    payload,
+  };
+};
+
+export const routeRequest = (payload) => {
+  return {
+    type: "ROUTE_REQUEST",
+    payload,
+  };
+};
+export const routeSuccess = (payload) => {
+  return {
+    type: "ROUTE_SUCCESS",
+    payload,
+  };
+};
+export const routeFailure = () => {
+  return {
+    type: "ROUTE_FAILURE",
+  };
+};
+
 export const logoutUser = (payload) => {
   return {
     type: "LOGOUT_USER",
