@@ -3,7 +3,7 @@ const coordsDetail = null;
 export default (state = coordsDetail, action) => {
   switch (action.type) {
     case "ROUTE_REQUEST":
-      return action.payload;
+      return null;
     case "ROUTE_SUCCESS":
       return action.payload;
     case "ROUTE_FAILURE":

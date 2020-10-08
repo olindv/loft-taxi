@@ -17,20 +17,20 @@ export function* loginSaga(action) {
   }
 }
 
-export function* registrationSaga(action) {
-  const { name, surname, email, password } = action.payload;
-  const [success, token] = yield call(
-    serverRegistration,
-    name,
-    surname,
-    email,
-    password
-  );
-  if (success) {
-    yield put(registrationSuccess(token));
-    yield window.localStorage.setItem("token", token);
-  }
-}
+// export function* registrationSaga(action) {
+//   const { name, surname, email, password } = action.payload;
+//   const [success, token] = yield call(
+//     serverRegistration,
+//     name,
+//     surname,
+//     email,
+//     password
+//   );
+//   if (success) {
+//     yield put(registrationSuccess(token));
+//     yield window.localStorage.setItem("token", token);
+//   }
+// }
 
 export function* logoutSaga() {
   yield window.localStorage.removeItem("token");
@@ -38,6 +38,6 @@ export function* logoutSaga() {
 
 export function* authSagas() {
   yield takeEvery(loginRequest().type, loginSaga);
-  yield takeEvery(registrationRequest().type, registrationSaga);
+  // yield takeEvery(registrationRequest().type, registrationSaga);
   yield takeEvery(logoutUser().type, logoutSaga);
 }

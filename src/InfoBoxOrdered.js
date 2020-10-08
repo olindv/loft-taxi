@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Typography, Button } from "@material-ui/core";
+import { connect } from "react-redux";
+import { flagChangeValue } from "./redux/actions/actions";
 
-export function InfoBoxOrdered() {
+export function InfoBoxOrdered({ changeOrderFlag }) {
+  const handleClick = () => {
+    changeOrderFlag();
+  };
   return (
-    <div className="info__box_ordered">
+    <div className="info__box_ordered info__box_wrap">
       <div className="info__box_title">
         <Typography variant="h4">Заказ размещен</Typography>
       </div>
@@ -14,11 +18,18 @@ export function InfoBoxOrdered() {
         </Typography>
       </div>
       <div className="actions">
-        <Button component={Link} color="primary" variant="contained">
+        <Button color="primary" variant="contained" onClick={handleClick}>
           Оформить новый заказ
         </Button>
       </div>
     </div>
   );
 }
-export default InfoBoxOrdered;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeOrderFlag: () => dispatch(flagChangeValue({ orderFlag: false })),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(InfoBoxOrdered);

@@ -9,9 +9,8 @@ import {
 export function* getAddressesSaga() {
   try {
     const response = yield call(serverGetAddressList);
-    const { data } = response;
-    yield put(addressListSuccess(data.addresses));
-  } catch ({ message }) {
+    yield put(addressListSuccess(response.addresses));
+  } catch ({ message, data }) {
     yield put(addressListFailure(message));
   }
 }

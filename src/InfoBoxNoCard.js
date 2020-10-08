@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Button } from "@material-ui/core";
+import "./InfoBox.scss";
 
 export function InfoBoxNoCard() {
   return (
-    <div className="info__box_nocard">
+    <div className="info__box_nocard info__box_wrap">
       <div className="info__box_title">
         <Typography variant="h4">Заполните платежные данные</Typography>
       </div>
@@ -14,7 +15,12 @@ export function InfoBoxNoCard() {
         </Typography>
       </div>
       <div className="actions">
-        <Button component={Link} color="primary" variant="contained">
+        <Button
+          component={Link}
+          to="/profile"
+          color="primary"
+          variant="contained"
+        >
           Перейти в профиль
         </Button>
       </div>

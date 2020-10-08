@@ -1,4 +1,4 @@
-const addressDetail = [];
+const addressDetail = {};
 
 export default (state = addressDetail, action) => {
   switch (action.type) {

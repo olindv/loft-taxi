@@ -15,5 +15,11 @@
     &_control {
       margin-bottom: 30px !important;
     }
+    &_nocard,
+    &_ordered {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
   }
 }

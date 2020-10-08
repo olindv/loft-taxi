@@ -111,3 +111,17 @@ export const logoutUser = (payload) => {
     payload,
   };
 };
+
+export const paymentChangeField = (payload) => {
+  return {
+    type: "PAYMENT_CHANGE_FIELD",
+    payload,
+  };
+};
+
+export const flagChangeValue = (payload) => {
+  return {
+    type: "FLAG_CHANGE_VALUE",
+    payload,
+  };
+};

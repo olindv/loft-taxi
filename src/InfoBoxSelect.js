@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   Paper,
@@ -8,36 +8,67 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
-import { addressListRequest } from "./redux/actions/actions";
+import { addressListRequest, routeRequest } from "./redux/actions/actions";
 import "./InfoBox.scss";
 
-export function InfoBoxSelect({ getAddresses }) {
-  const makeOrder = (e) => {
-    e.preventDefault();
-  };
+export function InfoBoxSelect({ getAddresses, addressList, getRoutes }) {
+  const [addressValues, setAddressValues] = useState({
+    addressFrom: "",
+    addressTo: "",
+  });
+
   useEffect(() => {
     getAddresses();
-  });
+  }, [getAddresses]);
+
+  const inputChange = (e) => {
+    const { name, value } = e.target;
+    setAddressValues({ ...addressValues, [name]: value });
+  };
+  const makeOrder = (e) => {
+    e.preventDefault();
+    getRoutes(addressValues.addressFrom, addressValues.addressTo);
+  };
+
+  const CreateCustomSelect = ({ addressValue, filteredOption }) => {
+    let menuItem =
+      addressList.length &&
+      addressList
+        .filter((item) => item !== filteredOption)
+        .map((addressOption, index) => (
+          <MenuItem key={index} value={addressOption}>
+            {addressOption}
+          </MenuItem>
+        ));
+
+    return (
+      <Select
+        value={addressValues[addressValue]}
+        onChange={inputChange}
+        inputProps={{ name: addressValue }}
+        data-testid={addressValue}
+      >
+        {menuItem}
+      </Select>
+    );
+  };
+
   return (
     <Paper className="info__box_wrap">
       <form className="info__box_form" onSubmit={makeOrder}>
         <FormControl className="info__box_control">
-          <InputLabel id="from-location">Откуда</InputLabel>
-          <Select
-            labelId="from-location"
-            id="from-location"
-            value=""
-            // onChange={}
-          ></Select>
+          <InputLabel id="addressFrom">Откуда</InputLabel>
+          <CreateCustomSelect
+            addressValue="addressFrom"
+            filteredOption={addressValues.addressTo}
+          />
         </FormControl>
         <FormControl className="info__box_control">
-          <InputLabel id="to-location">Куда</InputLabel>
-          <Select
-            labelId="to-location"
-            id="to-location"
-            value=""
-            // onChange={}
-          ></Select>
+          <InputLabel id="addressTo">Куда</InputLabel>
+          <CreateCustomSelect
+            addressValue="addressTo"
+            filteredOption={addressValues.addressFrom}
+          />
         </FormControl>
         <Button type="submit" variant="contained" color="primary">
           Вызвать такси
@@ -50,12 +81,18 @@ export function InfoBoxSelect({ getAddresses }) {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.auth.isLoggedIn,
+    addressList: state.addresses,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAddresses: () => dispatch(addressListRequest()),
+    getAddresses: () => {
+      return dispatch(addressListRequest());
+    },
+    getRoutes: (addressFrom, addressTo) => {
+      return dispatch(routeRequest({ addressFrom, addressTo }));
+    },
   };
 };
 

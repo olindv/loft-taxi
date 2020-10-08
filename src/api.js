@@ -18,49 +18,28 @@ export const serverRegistration = async (name, surname, email, password) => {
     .then((data) => [data.success, data.token]);
 };
 
-export const serverPayment = async (
-  cardNumber,
-  expiryDate,
-  userName,
-  cvcNumber
-) => {
+export const serverPayment = async (payload) => {
   return await fetch("https://loft-taxi.glitch.me/card", {
     method: "POST",
-    body: JSON.stringify({ cardNumber, expiryDate, userName, cvcNumber }),
+    body: JSON.stringify(payload),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
   })
     .then((response) => response.json())
     .then((data) => data.success);
 };
 
-export const serverGetCard = async (
-  cardNumber,
-  expiryDate,
-  userName,
-  cvcNumber,
-  token
-) => {
-  return await fetch(`https://loft-taxi.glitch.me/card?token=${token}`, {
+export const serverGetCard = (token) => {
+  return fetch(`https://loft-taxi.glitch.me/card?token=${token}`, {
     method: "GET",
-    body: JSON.stringify({
-      cardNumber,
-      expiryDate,
-      userName,
-      cvcNumber,
-      token,
-    }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
-  })
-    .then((response) => response.json())
-    .then((data) => data.success);
+  }).then((response) => response.json());
 };
 
-export const serverGetAddressList = async () => {
-  return await fetch("https://loft-taxi.glitch.me/addressList", {
+export const serverGetAddressList = () => {
+  return fetch("https://loft-taxi.glitch.me/addressList", {
     method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => data.success);
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+  }).then((response) => response.json());
 };
 
 export const serverGetRoute = async (from, to) => {
@@ -68,8 +47,10 @@ export const serverGetRoute = async (from, to) => {
     `https://loft-taxi.glitch.me/route?address1=${from}&address2=${to}`,
     {
       method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     }
-  )
-    .then((response) => response.json())
-    .then((data) => data.success);
+  ).then((response) => response.json());
 };

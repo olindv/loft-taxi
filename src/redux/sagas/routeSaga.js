@@ -1,12 +1,18 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { serverGetRoute } from "../../api";
-import { routeSuccess, routeFailure, routeRequest } from "../actions/actions";
+import {
+  routeSuccess,
+  routeFailure,
+  routeRequest,
+  flagChangeValue,
+} from "../actions/actions";
 
-export function* getRouteSaga() {
+export function* getRouteSaga(action) {
   try {
-    const response = yield call(serverGetRoute);
-    const { data } = response;
-    yield put(routeSuccess(data.addresses));
+    const { addressFrom, addressTo } = action.payload;
+    const response = yield call(serverGetRoute, addressFrom, addressTo);
+    yield put(routeSuccess(response));
+    yield put(flagChangeValue({ orderFlag: true }));
   } catch ({ message }) {
     yield put(routeFailure(message));
   }
