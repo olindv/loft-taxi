@@ -5,7 +5,6 @@ import InfoBoxOrdered from "./InfoBoxOrdered";
 import { connect } from "react-redux";
 
 export function InfoBox({ paymentFlag, orderFlag }) {
-  console.log(paymentFlag, orderFlag);
   return (
     <div className="info__box">
       <div className="info__box_container">

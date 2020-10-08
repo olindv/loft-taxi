@@ -2,15 +2,11 @@ import React from "react";
 import { MCIcon } from "loft-taxi-mui-theme";
 import "./Profile.scss";
 import { connect } from "react-redux";
-import {
-  paymentRequest,
-  paymentGetCardRequest,
-  paymentChangeField,
-} from "./redux/actions/actions";
+import { paymentRequest, paymentChangeField } from "./redux/actions/actions";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-const Profile = ({ payment, inputValues, getPaymentInfo, changeField }) => {
+const Profile = ({ payment, inputValues, changeField }) => {
   const handleInnputChange = (e) => {
     const { name, value } = e.target;
     changeField({ name, value });
