@@ -3,7 +3,6 @@ import { registrationRequest, registrationSuccess } from "../actions/actions";
 import { serverRegistration } from "../../api";
 
 export function* registrationSaga(action) {
-  debugger;
   const { name, surname, email, password } = action.payload;
   const [success, token] = yield call(
     serverRegistration,

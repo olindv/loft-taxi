@@ -1,5 +1,6 @@
+const url = "https://loft-taxi.glitch.me";
 export const serverLogin = async (email, password) => {
-  return await fetch("https://loft-taxi.glitch.me/auth", {
+  return await fetch(`${url}/auth`, {
     method: "POST",
     body: JSON.stringify({ email, password }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -9,7 +10,7 @@ export const serverLogin = async (email, password) => {
 };
 
 export const serverRegistration = async (name, surname, email, password) => {
-  return await fetch("https://loft-taxi.glitch.me/register", {
+  return await fetch(`${url}/register`, {
     method: "POST",
     body: JSON.stringify({ name, surname, email, password }),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -19,7 +20,7 @@ export const serverRegistration = async (name, surname, email, password) => {
 };
 
 export const serverPayment = async (payload) => {
-  return await fetch("https://loft-taxi.glitch.me/card", {
+  return await fetch(`${url}/card`, {
     method: "POST",
     body: JSON.stringify(payload),
     headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -29,28 +30,25 @@ export const serverPayment = async (payload) => {
 };
 
 export const serverGetCard = (token) => {
-  return fetch(`https://loft-taxi.glitch.me/card?token=${token}`, {
+  return fetch(`${url}/card?token=${token}`, {
     method: "GET",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
   }).then((response) => response.json());
 };
 
 export const serverGetAddressList = () => {
-  return fetch("https://loft-taxi.glitch.me/addressList", {
+  return fetch(`${url}/addressList`, {
     method: "GET",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
   }).then((response) => response.json());
 };
 
 export const serverGetRoute = async (from, to) => {
-  return await fetch(
-    `https://loft-taxi.glitch.me/route?address1=${from}&address2=${to}`,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  ).then((response) => response.json());
+  return await fetch(`${url}/route?address1=${from}&address2=${to}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then((response) => response.json());
 };
