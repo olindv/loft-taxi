@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 export const PrivateRoute = ({ component: Component, isLoggedIn, ...rest }) => {
-  // debugger;
   return (
     <Route
       {...rest}
