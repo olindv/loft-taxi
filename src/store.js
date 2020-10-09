@@ -1,19 +1,22 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./redux/reducers";
-import { authMiddleWare } from "./redux/middleWares/authMiddleWare";
-import { paymentMiddleWare } from "./redux/middleWares/paymentMiddleWare";
+import createSagaMiddleWare from "redux-saga";
+import { hadleSagas } from "./redux/sagas/sagas";
+
+const sagaMiddleWare = createSagaMiddleWare();
 
 const createAppStore = () => {
   const store = createStore(
     rootReducer,
     compose(
-      applyMiddleware(authMiddleWare),
-      applyMiddleware(paymentMiddleWare),
+      applyMiddleware(sagaMiddleWare),
       window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : (noop) => noop
     )
   );
+
+  sagaMiddleWare.run(hadleSagas);
   return store;
 };
 

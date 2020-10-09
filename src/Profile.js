@@ -1,32 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { MCIcon } from "loft-taxi-mui-theme";
 import "./Profile.scss";
 import { connect } from "react-redux";
-import { paymentRequest } from "./redux/actions/actions";
+import { paymentRequest, paymentChangeField } from "./redux/actions/actions";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-const Profile = ({ payment, paymentInfo }) => {
-  const [inputValues, setInputValue] = useState({
-    cardNumber: paymentInfo.cardNumber || "",
-    expiryDate: paymentInfo.expiryDate || new Date(),
-    userName: paymentInfo.userName || "",
-    cvcNumber: paymentInfo.cvcNumber || "",
-  });
-
-  const handleDateChange = (date) => {
-    setInputValue({
-      ...inputValues,
-      expiryDate: date,
-    });
-  };
-
+const Profile = ({ payment, inputValues, changeField }) => {
   const handleInnputChange = (e) => {
     const { name, value } = e.target;
-    setInputValue({
-      ...inputValues,
-      [name]: value,
-    });
+    changeField({ name, value });
+  };
+  const handleDateChange = (date) => {
+    changeField({ name: "expiryDate", value: date });
   };
 
   const submit = (e) => {
@@ -74,30 +60,29 @@ const Profile = ({ payment, paymentInfo }) => {
                     views={["year", "month"]}
                     format="MM/yy"
                     fullWidth
-                    required
                   />
                 </MuiPickersUtilsProvider>
               </div>
               <div className="form__right">
                 <div className="form__row form__row_column">
-                  <label htmlFor="userName">Имя владельца:</label>
+                  <label htmlFor="cardName">Имя владельца:</label>
                   <input
-                    type="userName"
-                    id="userName"
-                    name="userName"
-                    value={inputValues.userName}
+                    type="cardName"
+                    id="cardName"
+                    name="cardName"
+                    value={inputValues.cardName}
                     className="form__input"
                     onChange={handleInnputChange}
                     required={true}
                   ></input>
                 </div>
                 <div className="form__row form__row_column">
-                  <label htmlFor="cvcNumber">CVC:</label>
+                  <label htmlFor="cvc">CVC:</label>
                   <input
-                    type="cvcNumber"
-                    id="cvcNumber"
-                    name="cvcNumber"
-                    value={inputValues.cvcNumber}
+                    type="cvc"
+                    id="cvc"
+                    name="cvc"
+                    value={inputValues.cvc}
                     className="form__input"
                     onChange={handleInnputChange}
                     required={true}
@@ -118,7 +103,7 @@ const Profile = ({ payment, paymentInfo }) => {
 
 const mapStateToProps = (state) => {
   return {
-    paymentInfo: state.payment,
+    inputValues: state.payment,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -127,6 +112,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(
         paymentRequest({ cardNumber, expiryDate, userName, cvcNumber, token })
       ),
+    changeField: (payload) => {
+      dispatch(paymentChangeField(payload));
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

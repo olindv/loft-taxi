@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Logo } from "loft-taxi-mui-theme";
 import "./Login.scss";
 import { func, bool } from "prop-types";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginRequest } from "./redux/actions/actions";
 
@@ -17,7 +17,13 @@ const Login = ({ isLoggedIn, login }) => {
     const { email, password } = e.target;
     login(email.value, password.value);
   };
-  if (isLoggedIn) return <Redirect to="/map" />;
+
+  const history = useHistory();
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push("/map");
+    }
+  }, [history, isLoggedIn]);
   return (
     <div className="login__page" data-testid="login">
       <div className="login__container">

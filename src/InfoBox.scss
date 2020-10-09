@@ -1,0 +1,25 @@
+.info {
+  &__box {
+    &_wrap {
+      position: absolute;
+      z-index: 5;
+      padding: 50px;
+      top: 50px;
+      left: 50px;
+      display: flex;
+    }
+    &_form {
+      display: flex;
+      flex-direction: column;
+    }
+    &_control {
+      margin-bottom: 30px !important;
+    }
+    &_nocard,
+    &_ordered {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

@@ -1,49 +1,56 @@
+const url = "https://loft-taxi.glitch.me";
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
+
 export const serverLogin = async (email, password) => {
-  return fetch("https://loft-taxi.glitch.me/auth", {
+  return await fetch(`${url}/auth`, {
     method: "POST",
     body: JSON.stringify({ email, password }),
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    headers,
   })
     .then((response) => response.json())
     .then((data) => [data.success, data.token]);
 };
 
 export const serverRegistration = async (name, surname, email, password) => {
-  return fetch("https://loft-taxi.glitch.me/register", {
+  return await fetch(`${url}/register`, {
     method: "POST",
     body: JSON.stringify({ name, surname, email, password }),
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    headers,
   })
     .then((response) => response.json())
     .then((data) => [data.success, data.token]);
 };
 
-export const serverPayment = async (
-  cardNumber,
-  expiryDate,
-  userName,
-  cvcNumber
-) => {
-  return fetch("https://loft-taxi.glitch.me/card", {
+export const serverPayment = async (payload) => {
+  return await fetch(`${url}/card`, {
     method: "POST",
-    body: JSON.stringify({ cardNumber, expiryDate, userName, cvcNumber }),
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+    headers,
   })
     .then((response) => response.json())
     .then((data) => data.success);
 };
 
-export const serverGetCard = async (
-  cardNumber,
-  expiryDate,
-  userName,
-  cvcNumber
-) => {
-  return fetch("https://loft-taxi.glitch.me/card", {
+export const serverGetCard = (token) => {
+  return fetch(`${url}/card?token=${token}`, {
     method: "GET",
-    body: JSON.stringify({ cardNumber, expiryDate, userName, cvcNumber }),
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
-  })
-    .then((response) => response.json())
-    .then((data) => data.success);
+    headers,
+  }).then((response) => response.json());
+};
+
+export const serverGetAddressList = () => {
+  return fetch(`${url}/addressList`, {
+    method: "GET",
+    headers,
+  }).then((response) => response.json());
+};
+
+export const serverGetRoute = async (from, to) => {
+  return await fetch(`${url}/route?address1=${from}&address2=${to}`, {
+    method: "GET",
+    headers,
+  }).then((response) => response.json());
 };
