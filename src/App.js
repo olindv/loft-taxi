@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import { loginSuccess } from "./redux/actions/actions";
 import { func } from "prop-types";
 
+import * as Sentry from "@sentry/react";
+
 const propTypes = {
   isLoggedIn: func,
 };
@@ -30,18 +32,36 @@ class App extends Component {
   render() {
     return (
       <>
-        <div className="app" data-testid="app">
-          {(this.props.location.pathname === "/map" ||
-            this.props.location.pathname === "/profile") && <Header />}
-          {!this.state.initialLoad && (
-            <Switch>
-              <Route path="/" component={Registration} exact />
-              <Route path="/login" component={Login} />
-              <PrivateRoute path="/map" component={Map} />
-              <PrivateRoute path="/profile" component={Profile} />
-            </Switch>
+        <Sentry.ErrorBoundary
+          fallback={({ error, componentStack, resetError }) => (
+            <React.Fragment>
+              <div>You have encountered an error</div>
+              <div>{error.toString()}</div>
+              <div>{componentStack}</div>
+              <button
+                onClick={() => {
+                  this.setState({ message: "This is my app" });
+                  resetError();
+                }}
+              >
+                Click here to reset!
+              </button>
+            </React.Fragment>
           )}
-        </div>
+        >
+          <div className="app" data-testid="app">
+            {(this.props.location.pathname === "/map" ||
+              this.props.location.pathname === "/profile") && <Header />}
+            {!this.state.initialLoad && (
+              <Switch>
+                <Route path="/" component={Registration} exact />
+                <Route path="/login" component={Login} />
+                <PrivateRoute path="/map" component={Map} />
+                <PrivateRoute path="/profile" component={Profile} />
+              </Switch>
+            )}
+          </div>
+        </Sentry.ErrorBoundary>
       </>
     );
   }

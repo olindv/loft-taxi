@@ -5,6 +5,7 @@ import { bool, func } from "prop-types";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { registrationRequest } from "./redux/actions/actions";
+import * as Sentry from "@sentry/react";
 
 const propTypes = {
   isLoggedIn: bool,
@@ -24,6 +25,29 @@ const Registration = ({ isLoggedIn, registration }) => {
       history.push("/map");
     }
   }, [history, isLoggedIn]);
+
+  const handleError1 = () => {
+    try {
+      throw new Error("testing error");
+    } catch (error) {
+      Sentry.captureException(error);
+    }
+  };
+  const handleError2 = () => {
+    return [1, 2, 3].map((el) => {
+      return el ** 2;
+    });
+  };
+  const handleError3 = () => {
+    try {
+      throw new SyntaxError("new syntaxerror");
+    } catch (error) {
+      Sentry.captureException(error);
+    }
+  };
+  const handleError4 = () => {
+    throw new TypeError("new typerror");
+  };
   return (
     <div className="registration__page" data-testid="registration">
       <div className="registration__container">
@@ -87,6 +111,11 @@ const Registration = ({ isLoggedIn, registration }) => {
               </button>
             </div>
           </form>
+          <button onClick={handleError1}>Error 1</button>
+          <button onClick={handleError2}>Error 2</button>
+          <button onClick={handleError3}>Error 3</button>
+          <button onClick={handleError4}>Error 4</button>
+          <button onClick={methodDoesNotExist}>Break the world</button>
         </div>
       </div>
     </div>
