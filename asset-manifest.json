@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/loft-taxi/static/css/main.a94092ff.chunk.css",
+    "main.js": "/loft-taxi/static/js/main.820ac285.chunk.js",
+    "main.js.map": "/loft-taxi/static/js/main.820ac285.chunk.js.map",
+    "runtime-main.js": "/loft-taxi/static/js/runtime-main.9fadced3.js",
+    "runtime-main.js.map": "/loft-taxi/static/js/runtime-main.9fadced3.js.map",
+    "static/js/2.bca6d746.chunk.js": "/loft-taxi/static/js/2.bca6d746.chunk.js",
+    "static/js/2.bca6d746.chunk.js.map": "/loft-taxi/static/js/2.bca6d746.chunk.js.map",
+    "index.html": "/loft-taxi/index.html",
+    "precache-manifest.5f8006b1c5f0a138f317ad5634cd6dc3.js": "/loft-taxi/precache-manifest.5f8006b1c5f0a138f317ad5634cd6dc3.js",
+    "service-worker.js": "/loft-taxi/service-worker.js",
+    "static/css/main.a94092ff.chunk.css.map": "/loft-taxi/static/css/main.a94092ff.chunk.css.map",
+    "static/js/2.bca6d746.chunk.js.LICENSE.txt": "/loft-taxi/static/js/2.bca6d746.chunk.js.LICENSE.txt",
+    "static/media/Profile.scss": "/loft-taxi/static/media/bg.eb556b48.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9fadced3.js",
+    "static/js/2.bca6d746.chunk.js",
+    "static/css/main.a94092ff.chunk.css",
+    "static/js/main.820ac285.chunk.js"
+  ]
+}
