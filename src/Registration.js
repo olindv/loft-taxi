@@ -115,7 +115,6 @@ const Registration = ({ isLoggedIn, registration }) => {
           <button onClick={handleError2}>Error 2</button>
           <button onClick={handleError3}>Error 3</button>
           <button onClick={handleError4}>Error 4</button>
-          <button onClick={methodDoesNotExist}>Break the world</button>
         </div>
       </div>
     </div>
